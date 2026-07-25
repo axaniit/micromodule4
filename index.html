@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Microbiology Module 4 Practice</title>
+
+  <style>
+    :root {
+      --background: #f4f6fa;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #d9e0ea;
+      --accent: #2563eb;
+      --accent-dark: #1d4ed8;
+      --ready-background: #dcfce7;
+      --ready-text: #166534;
+      --soon-background: #f1f5f9;
+      --soon-text: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 64px;
+    }
+
+    header {
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.9rem, 5vw, 2.7rem);
+    }
+
+    .subtitle {
+      max-width: 700px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .quiz-card {
+      display: flex;
+      min-height: 190px;
+      flex-direction: column;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+      color: inherit;
+      text-decoration: none;
+      transition:
+        transform 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+    }
+
+    .quiz-card:hover,
+    .quiz-card:focus-visible {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 26px rgb(15 23 42 / 10%);
+      outline: none;
+    }
+
+    .quiz-card h2 {
+      margin: 14px 0 6px;
+      font-size: 1.35rem;
+    }
+
+    .quiz-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .open-label {
+      margin-top: auto;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .status {
+      align-self: flex-start;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--ready-background);
+      color: var(--ready-text);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .coming-soon {
+      cursor: default;
+      opacity: 0.75;
+    }
+
+    .coming-soon:hover {
+      transform: none;
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .coming-soon .status {
+      background: var(--soon-background);
+      color: var(--soon-text);
+    }
+
+    footer {
+      margin-top: 34px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 650px) {
+      main {
+        padding-top: 30px;
+      }
+
+      .quiz-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .quiz-card {
+        min-height: 165px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Microbiology Module 4 Practice</h1>
+
+      <p class="subtitle">
+        Select a chapter set below. Each completed quiz grades your
+        answers and generates a report listing the questions, topics,
+        and learning objectives that need additional review.
+      </p>
+    </header>
+
+    <section class="quiz-grid" aria-label="Available quizzes">
+      <a class="quiz-card" href="quiz-27-33.html">
+        <span class="status">Ready</span>
+
+        <h2>Chapters 27 + 33</h2>
+
+        <p>
+          Microbial interactions, normal microbiota, the microbiome,
+          and dysbiosis.
+        </p>
+
+        <span class="open-label">Open quiz →</span>
+      </a>
+
+      <a class="quiz-card" href="quiz-31-32.html">
+        <span class="status">Ready</span>
+
+        <h2>Chapters 31 + 32</h2>
+
+        <p>
+          Innate immunity, adaptive immunity, immune cells,
+          antibodies, and immune responses.
+        </p>
+
+        <span class="open-label">Open quiz →</span>
+      </a>
+
+      <a class="quiz-card" href="quiz-34.html">
+        <span class="status">Ready</span>
+
+        <h2>Chapter 34</h2>
+
+        <p>
+          Pathogenicity, virulence factors, toxins, transmission,
+          and infection.
+        </p>
+
+        <span class="open-label">Open quiz →</span>
+      </a>
+
+      <a
+        class="quiz-card coming-soon"
+        href="quiz-35-41.html"
+        aria-label="Chapters 35 and 41 quiz coming soon"
+      >
+        <span class="status">Coming soon</span>
+
+        <h2>Chapters 35 + 41</h2>
+
+        <p>
+          This quiz will be added after the questions are uploaded.
+        </p>
+
+        <span class="open-label">Not available yet</span>
+      </a>
+    </section>
+
+    <footer>
+      Personal study resource. Not affiliated with UCF or Canvas.
+    </footer>
+  </main>
+</body>
+</html>
