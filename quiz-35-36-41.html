@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapters 35 + 36 + 41 — Epidemiology and Biotechnology Practice Quiz</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--text:#1f2937;--muted:#64748b;--border:#d8dee8;--accent:#2563eb;--good:#157347;--bad:#b42318;--soft:#eef4ff}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:900px;margin:auto;padding:24px 16px 60px}.top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:1.55rem;margin:0 0 4px}.sub{color:var(--muted);margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:10px;margin:20px 0}.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}.stat b{display:block;font-size:1.25rem}
+.question{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}.question.correct{border-color:var(--good)}.question.incorrect{border-color:var(--bad)}
+.qhead{display:flex;justify-content:space-between;gap:12px}.qnum{font-weight:700}.type{font-size:.86rem;color:var(--muted)}
+.option{display:flex;gap:10px;align-items:flex-start;margin:10px 0}.option input{margin-top:5px}
+select,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:white;font:inherit}
+.matchrow{margin:12px 0}.matchrow label{display:block;font-weight:600;margin-bottom:5px}
+.fillline{margin:10px 0}.inline-input{display:inline-block;width:180px;max-width:100%;margin:0 5px}
+button{border:1px solid var(--border);border-radius:11px;padding:10px 14px;font:inherit;font-weight:650;background:#fff;cursor:pointer}
+.primary{background:var(--accent);border-color:var(--accent);color:white}.toolbar{display:flex;gap:10px;flex-wrap:wrap}
+.feedback{display:none;margin-top:14px;padding:12px;border-radius:11px;background:#f8fafc}.feedback.show{display:block}.feedback strong.good{color:var(--good)}.feedback strong.bad{color:var(--bad)}
+.bank,.zone{min-height:88px;border:2px dashed var(--border);border-radius:12px;padding:10px;margin:10px 0}.zones{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chip{display:inline-block;margin:5px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:white;cursor:grab}
+.small{font-size:.9rem;color:var(--muted)}
+.report{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin:18px 0}
+.report.show{display:block}.report h2{margin-top:0}.report-item{border-top:1px solid var(--border);padding:12px 0}.report-item:first-child{border-top:0}
+.report ul{padding-left:22px}.all-good{color:var(--good);font-weight:700}.sticky{position:sticky;bottom:0;background:rgba(245,246,248,.95);backdrop-filter:blur(6px);padding:12px 0;margin-top:16px}
+@media(max-width:650px){.zones{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.inline-input{display:block;width:100%;margin:6px 0}}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <div><h1>Chapters 35 + 36 + 41 — Epidemiology and Biotechnology</h1><p class="sub">15-question self-grading recreation based on your screenshots</p></div>
+  <div class="toolbar"><button id="reset">Reset</button><button class="primary" id="gradeTop">Grade quiz</button></div>
+</div>
+<div class="stats">
+  <div class="stat"><span class="small">Answered</span><b id="answered">0/15</b></div>
+  <div class="stat"><span class="small">Correct</span><b id="correct">—</b></div>
+  <div class="stat"><span class="small">Score</span><b id="score">—</b></div>
+</div>
+<div id="quiz"></div>
+<div id="report" class="report"></div>
+<div class="sticky"><button class="primary" id="gradeBottom">Grade quiz</button> <button id="generateReport">Generate report</button></div>
+</main>
+<script>
+const questions = [{"id": 1, "type": "matching", "prompt": "Match each microbiologist to what they are well known for. (L.O. 35.04)", "rows": ["John Snow", "Joseph Lister", "Robert Koch", "Louis Pasteur", "Edward Jenner", "Antonie van Leeuwenhoek"], "options": ["Father of Epidemiology; solved cholera outbreak in London", "Introduced antiseptic techniques in surgery to reduce infections", "Created postulates that helped establish a relationship between microorganisms and disease", "Fully disproved spontaneous generation with Swan-Neck experiment; developed pasteurization", "Developed the first vaccine against smallpox", "First to view microorganisms in a microscope"], "answer": [0, 1, 2, 3, 4, 5], "explanation": "John Snow traced cholera epidemiologically; Lister introduced antisepsis; Koch developed his postulates; Pasteur disproved spontaneous generation and developed pasteurization; Jenner pioneered smallpox vaccination; Leeuwenhoek first observed microorganisms.", "learningObjectives": [4], "topic": "Match each microbiologist to what they are well known for. (L.O. 35.04)"}, {"id": 2, "type": "matching", "prompt": "Match each term to its correct definition. (L.O. 35.07)", "rows": ["Outbreak", "Pandemic", "Epidemic", "Morbidity", "Endemic", "Mortality"], "options": ["A sudden increase in the number of cases of a disease in a limited area", "An epidemic that spreads across multiple countries or continents", "A widespread outbreak of a disease affecting many individuals in a community or region", "The condition of being diseased or the rate of illness in a population", "A disease that is consistently present at a baseline level in a specific geographic area", "The rate of death caused by a disease within a population"], "answer": [0, 1, 2, 3, 4, 5], "explanation": "These terms describe the geographic spread, baseline presence, illness burden, and death burden of disease.", "learningObjectives": [7], "topic": "Match each term to its correct definition. (L.O. 35.07)"}, {"id": 3, "type": "single", "prompt": "Why are more deaths increasingly attributed to cancers and metabolic syndromes? (L.O. 35.06)", "options": ["Advances in medical diagnostics allow earlier and more accurate detection of these diseases", "Infectious diseases have completely disappeared worldwide", "These conditions are easier to treat than infectious diseases", "Genetic mutations causing these diseases are more common now"], "answer": 0, "explanation": "Improved diagnostic methods identify cancers and metabolic diseases earlier and more accurately.", "learningObjectives": [6], "topic": "Why are more deaths increasingly attributed to cancers and metabolic syndromes? (L.O. 35.06)"}, {"id": 4, "type": "single", "prompt": "Which of the following statements are TRUE? (L.O. 35.07)", "options": ["Infectious diseases cannot be transmitted between people; common source epidemics spread gradually through person-to-person contact.", "Propagated epidemics occur only with non-infectious diseases; communicable diseases cannot cause epidemics.", "Communicable diseases are a type of infectious disease that can be transmitted between people; common source epidemics involve exposure to one contaminated source causing many cases rapidly.", "Infectious diseases are caused by pathogens and always spread from person to person; propagated epidemics result from exposure to a single contaminated source."], "answer": 2, "explanation": "Communicable diseases can spread between people, while a common-source epidemic results from many people being exposed to the same source.", "learningObjectives": [7], "topic": "Which of the following statements are TRUE? (L.O. 35.07)"}, {"id": 5, "type": "multi", "prompt": "Which of the following factors can alter the herd immunity threshold in a population? (Select all that apply) (L.O. 35.01)", "options": ["Population density and social behavior", "Natural immunity from previous infections", "Changes in vaccination rates", "The color of the virus", "Emergence of more contagious variants"], "answer": [0, 1, 2, 4], "explanation": "Herd immunity is affected by contact patterns, immunity from infection, vaccination coverage, and pathogen transmissibility.", "learningObjectives": [1], "topic": "Which of the following factors can alter the herd immunity threshold in a population? (Select all that apply) (L.O. 35.01)"}, {"id": 6, "type": "ordering", "prompt": "Order the following nosocomial infections from most common to least common. (L.O. 35.06)", "items": ["Urinary Tract Infection", "Surgical Site Infection", "Pneumonia", "Bloodstream Infection"], "answer": ["Urinary Tract Infection", "Surgical Site Infection", "Pneumonia", "Bloodstream Infection"], "explanation": "The expected course order is urinary tract infection, surgical site infection, pneumonia, then bloodstream infection.", "learningObjectives": [6], "topic": "Order the following nosocomial infections from most common to least common. (L.O. 35.06)"}, {"id": 7, "type": "matching", "prompt": "Match each vaccine type to its correct description. (L.O. 35.02)", "rows": ["Live attenuated vaccine", "Inactivated vaccine", "Subunit vaccine", "mRNA vaccine"], "options": ["Contains weakened but live pathogens", "Contains killed pathogens", "Contains purified antigenic parts of the pathogen", "Uses messenger RNA to instruct cells to produce antigen"], "answer": [0, 1, 2, 3], "explanation": "Live attenuated vaccines use weakened organisms; inactivated vaccines use killed organisms; subunit vaccines use selected antigens; mRNA vaccines provide genetic instructions for antigen production.", "learningObjectives": [2], "topic": "Match each vaccine type to its correct description. (L.O. 35.02)"}, {"id": 8, "type": "matching", "prompt": "Match each vaccine type to its key advantage and disadvantage. (L.O. 35.02)", "rows": ["Subunit vaccine", "Live attenuated vaccine", "Inactivated vaccine", "Recombinant vaccine"], "options": ["Advantage: fewer side effects; disadvantage: identification is costly", "Advantage: strong, long-lasting immunity; disadvantage: risk in immunocompromised individuals", "Advantage: safer for immunocompromised; disadvantage: often requires boosters", "Advantage: rapid development and strong immunity; disadvantage: risks disrupting genomic DNA"], "answer": [0, 1, 2, 3], "explanation": "Each vaccine platform balances immune strength, safety, manufacturing complexity, and the possible need for boosters.", "learningObjectives": [2], "topic": "Match each vaccine type to its key advantage and disadvantage. (L.O. 35.02)"}, {"id": 9, "type": "multi", "prompt": "Which of the following diseases are considered potential bioterrorism agents? (Select all that apply) (L.O. 35.03)", "options": ["Smallpox", "Plague", "Botulism", "Cholera", "Tuberculosis", "Influenza", "Anthrax"], "answer": [0, 1, 2, 3, 6], "explanation": "The course key includes smallpox, plague, botulism, cholera, and anthrax.", "learningObjectives": [3], "topic": "Which of the following diseases are considered potential bioterrorism agents? (Select all that apply) (L.O. 35.03)"}, {"id": 10, "type": "single", "prompt": "Which of the following characteristics is most important for a good antigenic target in vaccine development?", "options": ["It mutates frequently to avoid immune detection", "It is found only in human cells to ensure immune tolerance", "It is conserved and accessible on the pathogen’s surface, triggering a strong immune response", "It is hidden within the pathogen to prevent early immune activation"], "answer": 2, "explanation": "A useful vaccine antigen should be relatively conserved, exposed to the immune system, and capable of generating a strong protective response.", "learningObjectives": [2], "topic": "Which of the following characteristics is most important for a good antigenic target in vaccine development?"}, {"id": 11, "type": "single", "prompt": "Which statement best describes the role of microorganisms in biofuel production?", "options": ["Microbes are used to extract fossil fuels from underground reserves.", "Certain microorganisms ferment sugars to produce ethanol, while others generate hydrogen gas through metabolic processes.", "Microorganisms prevent biofuel production by consuming available plant materials.", "Bacteria are only useful in breaking down toxic waste, not in energy production."], "answer": 1, "explanation": "Microbial metabolism can be harnessed to produce fuels such as ethanol and hydrogen.", "learningObjectives": [8], "topic": "Which statement best describes the role of microorganisms in biofuel production?"}, {"id": 12, "type": "single", "prompt": "Which of the following best distinguishes primary metabolites from secondary metabolites in microorganisms? (L.O. 41.5)", "options": ["Primary metabolites are essential for growth and reproduction, while secondary metabolites often serve ecological functions like defense or competition.", "Both primary and secondary metabolites are non-biological waste products.", "Secondary metabolites are involved in energy production, while primary metabolites are used only for storage.", "Primary metabolites are produced during the stationary phase, while secondary metabolites are produced during the log phase."], "answer": 0, "explanation": "Primary metabolites are tied directly to growth, whereas secondary metabolites often support ecological functions such as competition or defense.", "learningObjectives": [5], "topic": "Which of the following best distinguishes primary metabolites from secondary metabolites in microorganisms? (L.O. 41.5)"}, {"id": 13, "type": "single", "prompt": "Which of the following is an example of a secondary metabolite? (L.O. 41.5)", "options": ["RNA polymerase", "Glucose 6-phosphate", "Penicillin", "All of the above are secondary metabolites.", "All of the above are primary metabolites."], "answer": 2, "explanation": "Penicillin is a classic microbial secondary metabolite.", "learningObjectives": [5], "topic": "Which of the following is an example of a secondary metabolite? (L.O. 41.5)"}, {"id": 14, "type": "single", "prompt": "Which statement best describes the role of Bacillus thuringiensis (Bt) in biopesticide use?", "options": ["Bt is a virus that infects plants to make them toxic to insects.", "Bt is a fungus used to enhance soil fertility and crop growth.", "Bt is a synthetic chemical created to replace traditional pesticides.", "Bt produces a toxin that specifically targets insect larvae without harming humans or beneficial organisms."], "answer": 3, "explanation": "Bt produces insecticidal crystal proteins that target susceptible insect larvae.", "learningObjectives": [8], "topic": "Which statement best describes the role of Bacillus thuringiensis (Bt) in biopesticide use?"}, {"id": 15, "type": "single", "prompt": "How can microbes contribute to nanotechnology applications in MRI imaging?", "options": ["Microbes are used to power MRI machines through fermentation.", "Microbes emit radiation that replaces the need for magnetic fields in MRI.", "Certain bacteria can be engineered to produce magnetosomes that enhance contrast in MRI scans.", "Microbes are used to sterilize MRI equipment before patient use."], "answer": 2, "explanation": "Magnetosomes produced by certain bacteria can serve as magnetic contrast-enhancing materials.", "learningObjectives": [8], "topic": "How can microbes contribute to nanotechnology applications in MRI imaging?"}];
+const quiz = document.getElementById('quiz');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function norm(s){return String(s||'').trim().toLowerCase().replace(/[‐‑–—]/g,'-').replace(/\s+/g,' ')}
+function render(){
+ quiz.innerHTML='';
+ questions.forEach(q=>{
+  const sec=document.createElement('section'); sec.className='question'; sec.dataset.id=q.id;
+  sec.innerHTML=`<div class="qhead"><div><span class="qnum">Question ${q.id}</span><div>${esc(q.prompt)}</div></div><span class="type">${q.type.replace('_',' ')}</span></div>`;
+  const body=document.createElement('div');
+  if(q.type==='single'||q.type==='multi'){
+   q.options.forEach((o,i)=>{const d=document.createElement('label');d.className='option';d.innerHTML=`<input type="${q.type==='single'?'radio':'checkbox'}" name="q${q.id}" value="${i}"><span>${esc(o)}</span>`;body.appendChild(d)})
+  } else if(q.type==='tf'){
+   ['True','False'].forEach(v=>{const d=document.createElement('label');d.className='option';d.innerHTML=`<input type="radio" name="q${q.id}" value="${v.toLowerCase()}"><span>${v}</span>`;body.appendChild(d)})
+  } else if(q.type==='dropdown_multi'){
+   let optionIndex=0;
+   q.parts.forEach((parts,pi)=>{
+    const d=document.createElement('div');d.className='fillline';
+    parts.forEach((part,idx)=>{
+     d.appendChild(document.createTextNode(part));
+     if(idx<q.answers[pi].length){
+      const sel=document.createElement('select');sel.className='inline-input';sel.dataset.part=pi;sel.dataset.blank=idx;
+      sel.innerHTML='<option value="">Choose an answer</option>'+q.dropdownOptions[optionIndex].map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('');
+      optionIndex++;d.appendChild(sel)
+     }
+    });body.appendChild(d)
+   })
+  } else if(q.type==='ordering'){
+   q.items.forEach((item,i)=>{
+    const d=document.createElement('div');d.className='matchrow';
+    const shuffled=q.items.slice();
+    for(let k=shuffled.length-1;k>0;k--){
+     const n=Math.floor(Math.random()*(k+1));
+     [shuffled[k],shuffled[n]]=[shuffled[n],shuffled[k]]
+    }
+    d.innerHTML=`<label>${i+1}. Position</label><select data-row="${i}"><option value="">Choose an item</option>${shuffled.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`;
+    body.appendChild(d)
+   })
+  } else if(q.type==='matching'){
+   q.rows.forEach((r,i)=>{
+    const d=document.createElement('div');d.className='matchrow';
+    const shuffled=q.options.map((o,j)=>({o,j}));
+    for(let k=shuffled.length-1;k>0;k--){
+     const n=Math.floor(Math.random()*(k+1));
+     [shuffled[k],shuffled[n]]=[shuffled[n],shuffled[k]]
+    }
+    d.innerHTML=`<label>${esc(r)}</label><select data-row="${i}"><option value="">Choose an answer</option>${shuffled.map(({o,j})=>`<option value="${j}">${esc(o)}</option>`).join('')}</select>`;
+    body.appendChild(d)
+   })
+  } else if(q.type==='sort'){
+   const p=document.createElement('p');p.className='small';p.textContent='Drag items into the correct category. On a phone, tap an item and then tap a category.';body.appendChild(p);
+   const bank=document.createElement('div');bank.className='bank';bank.dataset.cat='Unsorted';bank.innerHTML='<b>Unsorted</b><br>';q.items.forEach(item=>{const b=document.createElement('button');b.type='button';b.className='chip';b.draggable=true;b.textContent=item;b.dataset.item=item;bank.appendChild(b)});body.appendChild(bank);
+   const z=document.createElement('div');z.className='zones';q.categories.forEach(c=>{const d=document.createElement('div');d.className='zone';d.dataset.cat=c;d.innerHTML=`<b>${esc(c)}</b><br>`;z.appendChild(d)});body.appendChild(z)
+  }
+  sec.appendChild(body);const fb=document.createElement('div');fb.className='feedback';sec.appendChild(fb);quiz.appendChild(sec)
+ });
+ bindSort(); updateAnswered();
+}
+let selected=null;
+let lastResults=null;
+function bindSort(){
+ document.querySelectorAll('.chip').forEach(ch=>{
+  ch.addEventListener('dragstart',e=>{selected=ch;e.dataTransfer.setData('text/plain',ch.dataset.item)});
+  ch.addEventListener('click',()=>{selected=ch;document.querySelectorAll('.chip').forEach(x=>x.style.outline='');ch.style.outline='2px solid var(--accent)'})
+ });
+ document.querySelectorAll('.bank,.zone').forEach(z=>{
+  z.addEventListener('dragover',e=>e.preventDefault());
+  z.addEventListener('drop',e=>{e.preventDefault();if(selected){z.appendChild(selected);selected.style.outline='';selected=null;updateAnswered()}});
+  z.addEventListener('click',e=>{if(selected&&!e.target.classList.contains('chip')){z.appendChild(selected);selected.style.outline='';selected=null;updateAnswered()}})
+ });
+}
+function answered(q,sec){
+ if(q.type==='single'||q.type==='tf')return !!sec.querySelector('input:checked');
+ if(q.type==='multi')return sec.querySelectorAll('input:checked').length>0;
+ if(q.type==='dropdown_multi')return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+ if(q.type==='ordering')return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+ if(q.type==='matching')return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+ if(q.type==='sort')return sec.querySelector('[data-cat="Unsorted"] .chip')===null;
+}
+function updateAnswered(){document.getElementById('answered').textContent=`${questions.filter(q=>answered(q,document.querySelector(`[data-id="${q.id}"]`))).length}/${questions.length}`}
+document.addEventListener('change',updateAnswered);document.addEventListener('input',updateAnswered);
+function same(a,b){return a.length===b.length&&a.every((v,i)=>v===b[i])}
+function grade(){
+ let total=0;
+ const results=[];
+ questions.forEach(q=>{
+  const sec=document.querySelector(`[data-id="${q.id}"]`);let ok=false;
+  if(q.type==='single'){const c=sec.querySelector('input:checked');ok=!!c&&Number(c.value)===q.answer}
+  else if(q.type==='multi'){const vals=[...sec.querySelectorAll('input:checked')].map(x=>Number(x.value)).sort((a,b)=>a-b);ok=same(vals,[...q.answer].sort((a,b)=>a-b))}
+  else if(q.type==='tf'){const c=sec.querySelector('input:checked');ok=!!c&&((c.value==='true')===q.answer)}
+  else if(q.type==='dropdown_multi'){ok=q.answers.every((arr,pi)=>arr.every((a,bi)=>norm(a)===norm(sec.querySelector(`[data-part="${pi}"][data-blank="${bi}"]`).value)))}
+  else if(q.type==='ordering'){ok=same([...sec.querySelectorAll('select')].map(x=>x.value),q.answer)}
+  else if(q.type==='matching'){ok=same([...sec.querySelectorAll('select')].map(x=>x.value===''?null:Number(x.value)),q.answer)}
+  else if(q.type==='sort'){ok=q.categories.every(c=>{const vals=[...sec.querySelector(`[data-cat="${c}"]`).querySelectorAll('.chip')].map(x=>x.dataset.item).sort();return same(vals,[...q.answer[c]].sort())})}
+  sec.classList.remove('correct','incorrect');sec.classList.add(ok?'correct':'incorrect');if(ok)total++;results.push({id:q.id,ok,topic:q.topic,learningObjectives:q.learningObjectives});
+  const fb=sec.querySelector('.feedback');fb.classList.add('show');fb.innerHTML=`<strong class="${ok?'good':'bad'}">${ok?'Correct':'Incorrect'}</strong><div>${esc(q.explanation)}</div>`;
+ });
+ lastResults=results;document.getElementById('correct').textContent=`${total}/${questions.length}`;document.getElementById('score').textContent=`${Math.round(total/questions.length*100)}%`;document.getElementById('report').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'})
+}
+
+const learningObjectiveText={"1": "Explain herd immunity and discuss different ways that this level may be altered.", "2": "Compare the different types of vaccines. Include pros and cons of each.", "3": "List some of the diseases considered under bioterrorism and explain why they are labeled as such.", "4": "Discuss the scientist John Snow and what his role was in science.", "5": "Discuss what secondary metabolites are.", "6": "Define, describe, and explain nosocomial infection, reservoir, CDC, epidemiology, zoonoses, immunization, and adjuvant.", "7": "Compare and contrast CDC vs. WHO, bacteremia vs. toxemia vs. septicemia, endemic vs. epidemic vs. pandemic, communicable vs. infectious disease, and common-source vs. propagated epidemics.", "8": "Module 4 course competency: Analyze the impact and practical uses of microorganisms on humans."};
+function generateReport(){
+ if(!lastResults){alert('Grade the quiz first so the report can use this attempt.');return;}
+ const missed=lastResults.filter(r=>!r.ok),report=document.getElementById('report');
+ if(!missed.length){report.innerHTML='<h2>Learning report</h2><p class="all-good">You answered every question correctly on this attempt. No learning objectives were flagged for review.</p>';report.classList.add('show');report.scrollIntoView({behavior:'smooth'});return;}
+ const grouped={};missed.forEach(r=>r.learningObjectives.forEach(lo=>{(grouped[lo]??=[]).push(r)}));
+ const loHtml=Object.keys(grouped).sort((a,b)=>a-b).map(lo=>`<div class="report-item"><strong>Epidemiology / Module 4 LO ${lo}</strong><div>${esc(learningObjectiveText[lo])}</div><div class="small">Flagged by: ${grouped[lo].map(q=>`Question ${q.id} — ${esc(q.topic)}`).join('; ')}</div></div>`).join('');
+ const qHtml=missed.map(r=>`<li><strong>Question ${r.id}:</strong> ${esc(r.topic)} <span class="small">(LO ${r.learningObjectives.join(', ')})</span></li>`).join('');
+ report.innerHTML=`<h2>Learning report</h2><p>You missed <strong>${missed.length}</strong> of ${questions.length} questions on this attempt.</p><h3>Learning objectives to review</h3>${loHtml}<h3>Questions and topics to revisit</h3><ul>${qHtml}</ul>`;
+ report.classList.add('show');report.scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('gradeTop').addEventListener('click',grade);document.getElementById('gradeBottom').addEventListener('click',grade);document.getElementById('generateReport').addEventListener('click',generateReport);
+document.getElementById('reset').addEventListener('click',()=>{render();lastResults=null;document.getElementById('correct').textContent='—';document.getElementById('score').textContent='—';document.getElementById('report').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'})});
+render();
+</script>
+</body>
+</html>
