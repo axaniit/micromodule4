@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Module 1 — Chapter 1 Practice Quiz</title>
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--text:#1f2937;--muted:#64748b;--border:#d8dee8;--accent:#2563eb;--good:#157347;--bad:#b42318;--soft:#eef4ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:900px;margin:auto;padding:24px 16px 60px}
+.top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:1.55rem;margin:0 0 4px}.sub{color:var(--muted);margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(110px,1fr));gap:10px;margin:20px 0}.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px}.stat b{display:block;font-size:1.25rem}
+.question{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin:14px 0}.question.correct{border-color:var(--good)}.question.incorrect{border-color:var(--bad)}
+.qhead{display:flex;justify-content:space-between;gap:12px}.qnum{font-weight:700}.type{font-size:.86rem;color:var(--muted)}
+.option{display:flex;gap:10px;align-items:flex-start;margin:10px 0}.option input{margin-top:5px}
+select,input[type=text]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:white;font:inherit}
+.matchrow{margin:12px 0}.matchrow label{display:block;font-weight:600;margin-bottom:5px}
+.fillline{margin:10px 0}.inline-input{display:inline-block;width:220px;max-width:100%;margin:0 5px}
+button{border:1px solid var(--border);border-radius:11px;padding:10px 14px;font:inherit;font-weight:650;background:#fff;cursor:pointer}
+.primary{background:var(--accent);border-color:var(--accent);color:white}.toolbar{display:flex;gap:10px;flex-wrap:wrap}
+.feedback{display:none;margin-top:14px;padding:12px;border-radius:11px;background:#f8fafc}.feedback.show{display:block}.feedback strong.good{color:var(--good)}.feedback strong.bad{color:var(--bad)}
+.bank,.zone{min-height:88px;border:2px dashed var(--border);border-radius:12px;padding:10px;margin:10px 0}.zones{display:grid;grid-template-columns:1fr 1fr;gap:12px}.chip{display:inline-block;margin:5px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:white;cursor:grab}
+.small{font-size:.9rem;color:var(--muted)}
+.report{display:none;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin:18px 0}.report.show{display:block}.report h2{margin-top:0}.report-item{border-top:1px solid var(--border);padding:12px 0}.report-item:first-child{border-top:0}
+.report ul{padding-left:22px}.all-good{color:var(--good);font-weight:700}.sticky{position:sticky;bottom:0;background:rgba(245,246,248,.95);backdrop-filter:blur(6px);padding:12px 0;margin-top:16px}
+@media(max-width:650px){.zones{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.inline-input{display:block;width:100%;margin:6px 0}}
+</style>
+</head>
+<body>
+<main>
+<div class="top">
+  <div>
+    <h1>Module 1 — Chapter 1</h1>
+    <p class="sub">18-question self-grading recreation based on your screenshots</p>
+  </div>
+  <div class="toolbar"><button id="reset">Reset</button><button class="primary" id="gradeTop">Grade quiz</button></div>
+</div>
+<div class="stats">
+  <div class="stat"><span class="small">Answered</span><b id="answered">0/18</b></div>
+  <div class="stat"><span class="small">Correct</span><b id="correct">—</b></div>
+  <div class="stat"><span class="small">Score</span><b id="score">—</b></div>
+</div>
+<div id="quiz"></div>
+<div id="report" class="report"></div>
+<div class="sticky"><button class="primary" id="gradeBottom">Grade quiz</button> <button id="generateReport">Generate report</button></div>
+</main>
+<script>
+const questions = [
+  {
+    id: 1,
+    type: 'multi',
+    prompt: 'Which of the following statements BEST describes the importance of microorganisms? (Select all that apply) (L.O. 1.2)',
+    options: [
+      'Microorganisms are necessary for human survival and food production',
+      'Microorganisms exist only to cause disease and have no beneficial functions.',
+      'Microorganisms are all classified as non-living entities because they do not perform metabolic processes.',
+      'Microorganisms are found everywhere, in various and diverse environments',
+      'Microorganisms play an essential role in nutrient cycles and are biologically active in ecosystems'
+    ],
+    answer: [0,3,4],
+    explanation: 'Microorganisms are abundant, ecologically important, and essential to food production and nutrient cycling.',
+    learningObjectives: ['1.2'],
+    topic: 'Importance of microorganisms'
+  },
+  {
+    id: 2,
+    type: 'single',
+    prompt: 'Which of the following statements about why microorganisms are the foundation for all life on Earth is FALSE? (1.16)',
+    options: [
+      'Microorganisms contributed to evolutionary events like the development of mitochondria.',
+      'Microorganisms played a major role in producing Earth\'s oxygen through photosynthesis.',
+      'Microorganisms were the first forms of life and are key to nutrient cycling.',
+      'Microorganisms evolved from complex multicellular organisms.'
+    ],
+    answer: 3,
+    explanation: 'Microorganisms did not evolve from complex multicellular organisms; they were the earliest forms of life.',
+    learningObjectives: ['1.16'],
+    topic: 'Microorganisms as the foundation for life on Earth'
+  },
+  {
+    id: 3,
+    type: 'dropdown_multi',
+    prompt: 'Fill in the blanks about cellular vs. acellular microorganisms. (L.O. 1.20, 1.30)',
+    parts: [[
+      'Microorganisms can be categorized as cellular or acellular. Cellular organisms are considered living since they contain a ',
+      '. These include prokaryotes such as ',
+      ' as well as eukaryotes such as Eukarya. Since viruses lack a ',
+      ', they are considered acellular and are non-living organisms. Thus, viruses, viroids, and prions ',
+      ' part of the Domains of life.'
+    ]],
+    answers: [['cell membrane','Bacteria and Archaea','cell membrane','are not']],
+    dropdownOptions: [
+      ['cell membrane','capsid','nucleus','cell wall'],
+      ['Bacteria and Archaea','fungi and protozoa','plants and animals','viruses and viroids'],
+      ['cell membrane','ribosome','chromosome','cell wall'],
+      ['are not','are','might be','used to be']
+    ],
+    explanation: 'Cellular microorganisms have a cell membrane. Bacteria and Archaea are prokaryotes, while viruses, viroids, and prions are acellular and are not part of the Domains of life.',
+    learningObjectives: ['1.20','1.30'],
+    topic: 'Cellular vs. acellular microorganisms'
+  },
+  {
+    id: 4,
+    type: 'sort',
+    prompt: 'Determine which of the following characteristics fall within each Domain of life. (L.O. 1.20, 1.21, 1.22, 1.30, 1.31)',
+    categories: ['Archaea','Bacteria','Eukarya'],
+    items: [
+      'Share a more recent ancestor with eukaryotes',
+      'Can commonly be found as extremophiles',
+      'Performs methanogenesis and chemolithotrophy',
+      'Peptidoglycan cell wall',
+      'Includes E. coli',
+      'Membrane bound organelles',
+      'Includes fungi',
+      'Asexual or sexual reproduction (mitosis and meiosis)',
+      'Single-celled or multicellular'
+    ],
+    answer: {
+      'Archaea': [
+        'Share a more recent ancestor with eukaryotes',
+        'Can commonly be found as extremophiles',
+        'Performs methanogenesis and chemolithotrophy'
+      ],
+      'Bacteria': [
+        'Peptidoglycan cell wall',
+        'Includes E. coli'
+      ],
+      'Eukarya': [
+        'Membrane bound organelles',
+        'Includes fungi',
+        'Asexual or sexual reproduction (mitosis and meiosis)',
+        'Single-celled or multicellular'
+      ]
+    },
+    explanation: 'Archaea are closely related to eukaryotes and often include extremophiles; Bacteria include E. coli and have peptidoglycan cell walls; Eukarya have organelles and include fungi and multicellular organisms.',
+    learningObjectives: ['1.20','1.21','1.22','1.30','1.31'],
+    topic: 'Domain characteristics'
+  },
+  {
+    id: 5,
+    type: 'sort',
+    prompt: 'Determine which of the following characteristics fall within each Domain. (L.O. 1.20, 1.21, 1.22, 1.30, 1.31)',
+    categories: ['16s rRNA','18s rRNA'],
+    items: ['Bacteria','Archaea','Eukarya'],
+    answer: {
+      '16s rRNA': ['Bacteria','Archaea'],
+      '18s rRNA': ['Eukarya']
+    },
+    explanation: 'Bacteria and Archaea are associated with 16S rRNA, while Eukarya are associated with 18S rRNA.',
+    learningObjectives: ['1.20','1.21','1.22','1.30','1.31'],
+    topic: '16S vs. 18S rRNA by domain'
+  },
+  {
+    id: 6,
+    type: 'multi',
+    prompt: 'Which of the following statements are TRUE regarding the evolution of the first cells and the three Domains of life? (Select all that apply) (L.O. 1.10, 1.13)',
+    options: [
+      'Bacteria are more closely related to Eukarya than to Archaea.',
+      'Eukarya includes both unicellular and multicellular organisms.',
+      'All Archaea are extremophiles and cannot survive in non-extreme environments.',
+      'The Domains Bacteria and Archaea both lack a nucleus and membrane-bound organelles.',
+      'Eukaryotes evolved through a process involving endosymbiosis between primitive cells.',
+      'The first cells on Earth were prokaryotic and anaerobic.',
+      'Ribosomal RNA (rRNA) gene sequencing revealed the major evolutionary split between Bacteria, Archaea, and Eukarya.',
+      'Bacteria and Archaea have identical cell wall compositions and genetic transcription machinery.'
+    ],
+    answer: [1,3,4,5,6],
+    explanation: 'The true statements are that Eukarya can be unicellular or multicellular, Bacteria and Archaea are prokaryotic, eukaryotes arose through endosymbiosis, the first cells were prokaryotic/anaerobic, and rRNA sequencing revealed the three-domain split.',
+    learningObjectives: ['1.10','1.13'],
+    topic: 'First cells and the three domains of life'
+  },
+  {
+    id: 7,
+    type: 'single',
+    prompt: 'All of the following provide evidence for the RNA World Hypothesis EXCEPT: (L.O. 1.11)',
+    options: [
+      'Some RNA molecules may be used to silence genes as a form of gene regulation',
+      'The production of ATP, a type of ribonucleotide',
+      'Some RNA molecules possess catalytic activity and can self-splice',
+      'RNA is generally more chemically stable in structure than DNA',
+      'Ribosomal RNA plays a major role in protein synthesis'
+    ],
+    answer: 3,
+    explanation: 'RNA is less chemically stable than DNA, so that statement is the exception.',
+    learningObjectives: ['1.11'],
+    topic: 'RNA World Hypothesis'
+  },
+  {
+    id: 8,
+    type: 'multi',
+    prompt: 'Which of the following statements supports the Endosymbiosis Theory? (Select all that apply) (L.O. 1.7, 1.23)',
+    options: [
+      'Mitochondria and chloroplasts have ribosomes similar to those found in bacteria.',
+      'Mitochondria and chloroplasts are surrounded by a single membrane derived from the host cell.',
+      'Mitochondria and chloroplasts have their own circular DNA.',
+      'Mitochondria and chloroplasts have double membranes, suggesting an engulfment event.',
+      'Mitochondria and chloroplasts lack any DNA or ability to reproduce on their own.',
+      'Mitochondria and chloroplasts divide independently of the cell using binary fission.'
+    ],
+    answer: [0,2,3,5],
+    explanation: 'Bacterial-like ribosomes, circular DNA, double membranes, and binary fission all support endosymbiosis.',
+    learningObjectives: ['1.7','1.23'],
+    topic: 'Evidence for endosymbiosis'
+  },
+  {
+    id: 9,
+    type: 'matching',
+    prompt: 'Describe the following major events in the evolution of life on earth: the evolution of photosynthesis, the evolution of respiration, and endosymbiosis. (L.O. 1.7, 1.12, 1.23)',
+    rows: ['Evolution of Photosynthesis','Evolution of Aerobic Respiration','Endosymbiosis'],
+    options: [
+      'Some organisms began to use sunlight to convert carbon dioxide and water into glucose, releasing oxygen as a byproduct, drastically altering Earth\'s atmosphere.',
+      'Cells developed the ability to efficiently harvest energy from organic molecules using oxygen, allowing for greater energy production compared to fermentation.',
+      'Larger primitive cells engulfed smaller prokaryotes, leading to the formation of mitochondria and chloroplasts inside early eukaryotic cells.'
+    ],
+    answer: [0,1,2],
+    explanation: 'Photosynthesis oxygenated the atmosphere, aerobic respiration used oxygen for high-yield ATP production, and endosymbiosis led to mitochondria and chloroplasts.',
+    learningObjectives: ['1.7','1.12','1.23'],
+    topic: 'Major evolutionary events'
+  },
+  {
+    id: 10,
+    type: 'multi',
+    prompt: 'Which of the following are mechanisms that induce evolution in prokaryotes? (Select all that apply) (L.O. 1.8, 1.16, 1.30)',
+    options: [
+      'Binary fission producing genetically identical offspring',
+      'Horizontal gene transfer',
+      'Sexual reproduction between different species',
+      'Mutation of genetic material'
+    ],
+    answer: [1,3],
+    explanation: 'Horizontal gene transfer and mutation drive prokaryotic evolution.',
+    learningObjectives: ['1.8','1.16','1.30'],
+    topic: 'Mechanisms that induce evolution in prokaryotes'
+  },
+  {
+    id: 11,
+    type: 'matching',
+    prompt: 'Match the following terms to their corresponding meaning. (L.O. 1.30, 1.31)',
+    rows: ['Species','Strains','Type Strain','Biovars','Morphovars','Serovars','Genus','Virus','Viroid','Prion','Taxonomy'],
+    options: [
+      'Collection of strains',
+      'Descendents from a single, pure microbial culture',
+      'The first strain to be studied',
+      'Strains that differ biochemically and physiologically',
+      'Strains that differ morphologically',
+      'Strains that differ in antigenic properties.',
+      'Collection of species that are closely related and share common characteristics',
+      'A small infectious agent made of genetic material with a protein coat',
+      'A small piece of genetic material with no protein coat that causes disease',
+      'A misfolded protein that can cause other normal proteins to misfold, leading to diseases',
+      'Science of biological classification'
+    ],
+    answer: [0,1,2,3,4,5,6,7,8,9,10],
+    explanation: 'These terms describe taxonomic levels, strain variants, and acellular infectious agents.',
+    learningObjectives: ['1.30','1.31'],
+    topic: 'Species, strains, and related terminology'
+  },
+  {
+    id: 12,
+    type: 'multi',
+    prompt: 'Choose the following INCORRECT examples of naming microbes. (Select all that apply) (L.O. 1.24, 1.29, 1.30)',
+    options: [
+      'E. Coli',
+      'E. coli',
+      'Escherichia coli (italicized)',
+      'Escherichia coli (not italicized)',
+      'Escherichia Coli'
+    ],
+    answer: [0,3,4],
+    explanation: 'Correct scientific naming uses a capitalized genus, lowercase species, and italics for the full binomial or its abbreviation.',
+    learningObjectives: ['1.24','1.29','1.30'],
+    topic: 'Correct formatting for microbial names'
+  },
+  {
+    id: 13,
+    type: 'matching',
+    prompt: 'Match the following people to their contributions in microbiology. (L.O. 1.4, 1.5, 1.9, 1.14, 1.15, 1.19)',
+    rows: ['Anton van Leeuwenhoek','Robert Hooke','Francisco Redi','Louis Pasteur','Joseph Lister','Edward Jenner','Robert Koch','Carl Woese'],
+    options: [
+      'Invented the simple microscope; first person to observe microorganisms accurately in 1673',
+      'Published the first drawings of the fungus Mucor in his book, Micrographia, in 1665',
+      'Discredited spontaneous generation; showed that maggots on decaying meat came from fly eggs',
+      'Gets "seal of approval" for discrediting spontaneous generation with Swan-Neck experiment; demonstrated microorganisms carried out fermentations; developed pasteurization',
+      'Provided indirect evidence that microorganisms were the causal agents of disease; developed a surgery system to prevent microorganisms from entering wounds',
+      'Used vaccination procedure to protect against smallpox',
+      'Established the relationship between Bacillus anthracis and anthrax; developed Koch\'s postulates which are still used today',
+      'Utilizing rRNA, discovered the domain Archaea and fundamentally changed how scientists classify life'
+    ],
+    answer: [0,1,2,3,4,5,6,7],
+    explanation: 'These scientists were central to microscopy, spontaneous generation, germ theory, classification, vaccination, and Koch\'s postulates.',
+    learningObjectives: ['1.4','1.5','1.9','1.14','1.15','1.19'],
+    topic: 'Historical figures in microbiology'
+  },
+  {
+    id: 14,
+    type: 'tf',
+    prompt: 'The term "cell" was coined by Robert Hooke because they resembled tiny "rooms," or "cellula," that monks lived in within a monastery. (L.O. 1.11)',
+    answer: true,
+    explanation: 'True. Hooke coined the term after observing cork and thinking the structures looked like small rooms or cellula.',
+    learningObjectives: ['1.11'],
+    topic: 'Origin of the term cell'
+  },
+  {
+    id: 15,
+    type: 'multi',
+    prompt: 'Which of the following statements are TRUE regarding the Swan Neck Experiment? (Select all that apply) (L.O. 1.25, 1.26, 1.30)',
+    options: [
+      'Refuted the theory of spontaneous generation for microorganisms.',
+      'The swan-neck design prevented airborne microbes from reaching the broth.',
+      'The broth remained sterile unless the flask tilted or the neck was broken.',
+      'Pasteur concluded that a vital force in the air was necessary for microbial life to form.',
+      'The experiment directly demonstrated that microbes originate from other microbes, not from non-living matter.'
+    ],
+    answer: [0,1,2,4],
+    explanation: 'Pasteur\'s swan-neck flask experiment disproved spontaneous generation by showing contamination came from preexisting microbes in the air.',
+    learningObjectives: ['1.25','1.26','1.30'],
+    topic: 'Swan-Neck experiment'
+  },
+  {
+    id: 16,
+    type: 'single',
+    prompt: 'Which of the following describes the germ theory of disease? (L.O. 1.6)',
+    options: [
+      'Specific microorganisms are responsible for causing specific diseases.',
+      'Diseases are the result of bad air and environmental miasma.',
+      'Diseases develop spontaneously from nonliving matter.',
+      'Diseases are caused by imbalances in the body\'s four humors.'
+    ],
+    answer: 0,
+    explanation: 'Germ theory states that specific microorganisms cause specific diseases.',
+    learningObjectives: ['1.6'],
+    topic: 'Germ theory of disease'
+  },
+  {
+    id: 17,
+    type: 'ordering',
+    prompt: 'Order the following items in progression of Koch\'s Postulates! (L.O. 1.27)',
+    items: [
+      'Microorganism must be present in every case of the disease but absent from healthy organisms.',
+      'The suspected microorganisms must be isolated and grown in a pure culture.',
+      'The same disease must result when the isolated microorganism is inoculated into a healthy host.',
+      'The same microorganisms must be isolated from the diseased host.'
+    ],
+    answer: [
+      'Microorganism must be present in every case of the disease but absent from healthy organisms.',
+      'The suspected microorganisms must be isolated and grown in a pure culture.',
+      'The same disease must result when the isolated microorganism is inoculated into a healthy host.',
+      'The same microorganisms must be isolated from the diseased host.'
+    ],
+    explanation: 'Koch\'s postulates move from consistent presence in disease, to isolation, to causing disease in a healthy host, to re-isolation of the organism.',
+    learningObjectives: ['1.27'],
+    topic: 'Koch\'s postulates in order'
+  },
+  {
+    id: 18,
+    type: 'multi',
+    prompt: 'Which of the following are potential limitations of Koch\'s Postulates? (Select all that apply) (L.O. 1.15, 1.27, 1.28)',
+    options: [
+      'Viruses and obligate intracellular organisms require host cells for replication',
+      'All pathogens cause disease in every exposed individual',
+      'Certain microorganisms can exist in healthy carriers without causing disease',
+      'Some diseases are caused by multiple microorganisms acting together',
+      'Some pathogens cannot be cultured in laboratory media.'
+    ],
+    answer: [0,2,3,4],
+    explanation: 'Koch\'s postulates have limits because some agents cannot be cultured, some require host cells, some infections are polymicrobial, and healthy carriers can exist.',
+    learningObjectives: ['1.15','1.27','1.28'],
+    topic: 'Limitations of Koch\'s postulates'
+  }
+];
+
+const learningObjectiveText = {
+  '1.2': 'Explain the importance of microorganisms in human life, ecosystems, and food production.',
+  '1.4': 'Describe Anton van Leeuwenhoek\'s contribution to microbiology.',
+  '1.5': 'Describe early contributors such as Hooke, Redi, Pasteur, and Jenner.',
+  '1.6': 'Explain the germ theory of disease.',
+  '1.7': 'Describe endosymbiosis and its significance in evolution.',
+  '1.8': 'Describe mechanisms that drive evolution in prokaryotes.',
+  '1.9': 'Describe major historical contributions to microbiology.',
+  '1.10': 'Describe characteristics of the first cells on Earth.',
+  '1.11': 'Explain the RNA world concept and early cell terminology/history.',
+  '1.12': 'Describe major evolutionary milestones such as photosynthesis and aerobic respiration.',
+  '1.13': 'Compare the three Domains of life.',
+  '1.14': 'Explain Carl Woese\'s contribution and the role of rRNA in classification.',
+  '1.15': 'Explain Koch\'s contributions and related limitations.',
+  '1.16': 'Explain why microorganisms are the foundation for life on Earth.',
+  '1.19': 'Recognize historical figures and their microbiological contributions.',
+  '1.20': 'Differentiate cellular and acellular microorganisms and the Domains of life.',
+  '1.21': 'Compare characteristics of Bacteria, Archaea, and Eukarya.',
+  '1.22': 'Identify traits unique to each Domain of life.',
+  '1.23': 'Explain evidence supporting endosymbiosis.',
+  '1.24': 'Apply conventions for naming microorganisms.',
+  '1.25': 'Describe Pasteur\'s Swan-Neck experiment.',
+  '1.26': 'Explain how spontaneous generation was disproven.',
+  '1.27': 'State and apply Koch\'s postulates.',
+  '1.28': 'Describe the limitations of Koch\'s postulates.',
+  '1.29': 'Recognize correct scientific formatting for microbial names.',
+  '1.30': 'Use taxonomy and classification vocabulary correctly.',
+  '1.31': 'Distinguish species, genus, strains, and strain variants.'
+};
+
+const quiz = document.getElementById('quiz');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function norm(s){return String(s||'').trim().toLowerCase().replace(/[‐‑–—]/g,'-').replace(/\s+/g,' ')}
+function render(){
+  quiz.innerHTML='';
+  questions.forEach(q=>{
+    const sec=document.createElement('section'); sec.className='question'; sec.dataset.id=q.id;
+    sec.innerHTML=`<div class="qhead"><div><span class="qnum">Question ${q.id}</span><div>${esc(q.prompt)}</div></div><span class="type">${q.type.replace('_',' ')}</span></div>`;
+    const body=document.createElement('div');
+    if(q.type==='single'||q.type==='multi'){
+      q.options.forEach((o,i)=>{const d=document.createElement('label');d.className='option';d.innerHTML=`<input type="${q.type==='single'?'radio':'checkbox'}" name="q${q.id}" value="${i}"><span>${esc(o)}</span>`;body.appendChild(d)});
+    } else if(q.type==='tf'){
+      ['True','False'].forEach(v=>{const d=document.createElement('label');d.className='option';d.innerHTML=`<input type="radio" name="q${q.id}" value="${v.toLowerCase()}"><span>${v}</span>`;body.appendChild(d)});
+    } else if(q.type==='dropdown_multi'){
+      let optionIndex=0;
+      q.parts.forEach((parts,pi)=>{
+        const d=document.createElement('div');d.className='fillline';
+        parts.forEach((part,idx)=>{
+          d.appendChild(document.createTextNode(part));
+          if(idx<q.answers[pi].length){
+            const sel=document.createElement('select');sel.className='inline-input';sel.dataset.part=pi;sel.dataset.blank=idx;
+            sel.innerHTML='<option value="">Choose an answer</option>'+q.dropdownOptions[optionIndex].map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('');
+            optionIndex++;d.appendChild(sel);
+          }
+        });
+        body.appendChild(d);
+      });
+    } else if(q.type==='ordering'){
+      q.items.forEach((item,i)=>{
+        const d=document.createElement('div');d.className='matchrow';
+        const shuffled=q.items.slice();
+        for(let k=shuffled.length-1;k>0;k--){const n=Math.floor(Math.random()*(k+1));[shuffled[k],shuffled[n]]=[shuffled[n],shuffled[k]]}
+        d.innerHTML=`<label>${i+1}. Position</label><select data-row="${i}"><option value="">Choose an item</option>${shuffled.map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select>`;
+        body.appendChild(d);
+      });
+    } else if(q.type==='matching'){
+      q.rows.forEach((r,i)=>{
+        const d=document.createElement('div');d.className='matchrow';
+        const shuffled=q.options.map((o,j)=>({o,j}));
+        for(let k=shuffled.length-1;k>0;k--){const n=Math.floor(Math.random()*(k+1));[shuffled[k],shuffled[n]]=[shuffled[n],shuffled[k]]}
+        d.innerHTML=`<label>${esc(r)}</label><select data-row="${i}"><option value="">Choose an answer</option>${shuffled.map(({o,j})=>`<option value="${j}">${esc(o)}</option>`).join('')}</select>`;
+        body.appendChild(d);
+      });
+    } else if(q.type==='sort'){
+      const p=document.createElement('p');p.className='small';p.textContent='Drag items into the correct category. On a phone, tap an item and then tap a category.';body.appendChild(p);
+      const bank=document.createElement('div');bank.className='bank';bank.dataset.cat='Unsorted';bank.innerHTML='<b>Unsorted</b><br>';
+      q.items.forEach(item=>{const b=document.createElement('button');b.type='button';b.className='chip';b.draggable=true;b.textContent=item;b.dataset.item=item;bank.appendChild(b)});
+      body.appendChild(bank);
+      const z=document.createElement('div');z.className='zones';
+      q.categories.forEach(c=>{const d=document.createElement('div');d.className='zone';d.dataset.cat=c;d.innerHTML=`<b>${esc(c)}</b><br>`;z.appendChild(d)});
+      body.appendChild(z);
+    }
+    sec.appendChild(body); const fb=document.createElement('div'); fb.className='feedback'; sec.appendChild(fb); quiz.appendChild(sec);
+  });
+  bindSort();
+  updateAnswered();
+}
+let selected=null;
+let lastResults=null;
+function bindSort(){
+  document.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('dragstart',e=>{selected=ch;e.dataTransfer.setData('text/plain',ch.dataset.item)});
+    ch.addEventListener('click',()=>{selected=ch;document.querySelectorAll('.chip').forEach(x=>x.style.outline='');ch.style.outline='2px solid var(--accent)'});
+  });
+  document.querySelectorAll('.bank,.zone').forEach(z=>{
+    z.addEventListener('dragover',e=>e.preventDefault());
+    z.addEventListener('drop',e=>{e.preventDefault();if(selected){z.appendChild(selected);selected.style.outline='';selected=null;updateAnswered()}});
+    z.addEventListener('click',e=>{if(selected&&!e.target.classList.contains('chip')){z.appendChild(selected);selected.style.outline='';selected=null;updateAnswered()}});
+  });
+}
+function answered(q,sec){
+  if(q.type==='single'||q.type==='tf') return !!sec.querySelector('input:checked');
+  if(q.type==='multi') return sec.querySelectorAll('input:checked').length>0;
+  if(q.type==='dropdown_multi') return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+  if(q.type==='ordering') return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+  if(q.type==='matching') return [...sec.querySelectorAll('select')].every(x=>x.value!=='');
+  if(q.type==='sort') return sec.querySelector('[data-cat="Unsorted"] .chip')===null;
+}
+function updateAnswered(){document.getElementById('answered').textContent=`${questions.filter(q=>answered(q,document.querySelector(`[data-id="${q.id}"]`))).length}/${questions.length}`}
+document.addEventListener('change',updateAnswered);document.addEventListener('input',updateAnswered);
+function same(a,b){return a.length===b.length&&a.every((v,i)=>v===b[i])}
+function grade(){
+  let total=0; const results=[];
+  questions.forEach(q=>{
+    const sec=document.querySelector(`[data-id="${q.id}"]`); let ok=false;
+    if(q.type==='single'){const c=sec.querySelector('input:checked');ok=!!c&&Number(c.value)===q.answer}
+    else if(q.type==='multi'){const vals=[...sec.querySelectorAll('input:checked')].map(x=>Number(x.value)).sort((a,b)=>a-b);ok=same(vals,[...q.answer].sort((a,b)=>a-b))}
+    else if(q.type==='tf'){const c=sec.querySelector('input:checked');ok=!!c&&((c.value==='true')===q.answer)}
+    else if(q.type==='dropdown_multi'){ok=q.answers.every((arr,pi)=>arr.every((a,bi)=>norm(a)===norm(sec.querySelector(`[data-part="${pi}"][data-blank="${bi}"]`).value)))}
+    else if(q.type==='ordering'){ok=same([...sec.querySelectorAll('select')].map(x=>x.value),q.answer)}
+    else if(q.type==='matching'){ok=same([...sec.querySelectorAll('select')].map(x=>x.value===''?null:Number(x.value)),q.answer)}
+    else if(q.type==='sort'){ok=q.categories.every(c=>{const vals=[...sec.querySelector(`[data-cat="${c}"]`).querySelectorAll('.chip')].map(x=>x.dataset.item).sort();return same(vals,[...q.answer[c]].sort())})}
+    sec.classList.remove('correct','incorrect'); sec.classList.add(ok?'correct':'incorrect'); if(ok) total++;
+    results.push({id:q.id,ok,topic:q.topic,learningObjectives:q.learningObjectives});
+    const fb=sec.querySelector('.feedback'); fb.classList.add('show'); fb.innerHTML=`<strong class="${ok?'good':'bad'}">${ok?'Correct':'Incorrect'}</strong><div>${esc(q.explanation)}</div>`;
+  });
+  lastResults=results;
+  document.getElementById('correct').textContent=`${total}/${questions.length}`;
+  document.getElementById('score').textContent=`${Math.round(total/questions.length*100)}%`;
+  document.getElementById('report').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function generateReport(){
+  if(!lastResults){alert('Grade the quiz first so the report can use this attempt.');return;}
+  const missed=lastResults.filter(r=>!r.ok),report=document.getElementById('report');
+  if(!missed.length){report.innerHTML='<h2>Learning report</h2><p class="all-good">You answered every question correctly on this attempt. No learning objectives were flagged for review.</p>';report.classList.add('show');report.scrollIntoView({behavior:'smooth'});return;}
+  const grouped={};
+  missed.forEach(r=>r.learningObjectives.forEach(lo=>{(grouped[lo]??=[]).push(r)}));
+  const loHtml=Object.keys(grouped).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(lo=>`<div class="report-item"><strong>Module 1 LO ${esc(lo)}</strong><div>${esc(learningObjectiveText[lo]||'Review this learning objective.')}</div><div class="small">Flagged by: ${grouped[lo].map(q=>`Question ${q.id} — ${esc(q.topic)}`).join('; ')}</div></div>`).join('');
+  const qHtml=missed.map(r=>`<li><strong>Question ${r.id}:</strong> ${esc(r.topic)} <span class="small">(LO ${r.learningObjectives.join(', ')})</span></li>`).join('');
+  report.innerHTML=`<h2>Learning report</h2><p>You missed <strong>${missed.length}</strong> of ${questions.length} questions on this attempt.</p><h3>Learning objectives to review</h3>${loHtml}<h3>Questions and topics to revisit</h3><ul>${qHtml}</ul>`;
+  report.classList.add('show'); report.scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('gradeTop').addEventListener('click',grade);
+document.getElementById('gradeBottom').addEventListener('click',grade);
+document.getElementById('generateReport').addEventListener('click',generateReport);
+document.getElementById('reset').addEventListener('click',()=>{render();lastResults=null;document.getElementById('correct').textContent='—';document.getElementById('score').textContent='—';document.getElementById('report').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'})});
+render();
+</script>
+</body>
+</html>
