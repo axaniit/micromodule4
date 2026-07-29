@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1"
   >
 
-  <title>Microbiology Module 4 Practice</title>
+  <title>Microbiology Practice Quizzes</title>
 
   <style>
     :root {
@@ -17,6 +18,8 @@
       --muted: #64748b;
       --border: #d9e0ea;
       --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --folder: #f4b942;
       --ready-background: #dcfce7;
       --ready-text: #166534;
     }
@@ -39,7 +42,7 @@
     }
 
     main {
-      width: min(920px, calc(100% - 32px));
+      width: min(960px, calc(100% - 32px));
       margin: 0 auto;
       padding: 48px 0 64px;
     }
@@ -54,25 +57,119 @@
     }
 
     .subtitle {
-      max-width: 700px;
+      max-width: 720px;
       margin: 0;
       color: var(--muted);
       font-size: 1.05rem;
     }
 
-    .quiz-grid {
+    .module-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
 
-    .quiz-card {
-      display: flex;
-      min-height: 190px;
-      flex-direction: column;
-      padding: 22px;
+    .module-folder {
+      overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 4px 14px rgb(15 23 42 / 5%);
+    }
+
+    .module-folder summary {
+      display: flex;
+      min-height: 88px;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 22px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+    }
+
+    .module-folder summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .module-folder summary:hover,
+    .module-folder summary:focus-visible {
+      background: var(--accent-light);
+      outline: none;
+    }
+
+    .folder-icon {
+      flex: 0 0 auto;
+      font-size: 2.2rem;
+      line-height: 1;
+    }
+
+    .open-folder {
+      display: none;
+    }
+
+    .module-folder[open] .closed-folder {
+      display: none;
+    }
+
+    .module-folder[open] .open-folder {
+      display: inline;
+    }
+
+    .module-heading {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .module-heading h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .module-heading p {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .arrow {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 1.3rem;
+      transition: transform 180ms ease;
+    }
+
+    .module-folder[open] .arrow {
+      transform: rotate(180deg);
+    }
+
+    .module-content {
+      padding: 0 22px 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .empty-message {
+      margin: 20px 0 0;
+      padding: 16px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding-top: 20px;
+    }
+
+    .chapter-card {
+      display: flex;
+      min-height: 155px;
+      flex-direction: column;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       background: var(--card);
       color: inherit;
       text-decoration: none;
@@ -82,22 +179,33 @@
         box-shadow 150ms ease;
     }
 
-    .quiz-card:hover,
-    .quiz-card:focus-visible {
-      transform: translateY(-3px);
+    .chapter-card:hover,
+    .chapter-card:focus-visible {
+      transform: translateY(-2px);
       border-color: var(--accent);
-      box-shadow: 0 10px 26px rgb(15 23 42 / 10%);
+      box-shadow: 0 8px 20px rgb(15 23 42 / 9%);
       outline: none;
     }
 
-    .quiz-card h2 {
-      margin: 14px 0 6px;
-      font-size: 1.35rem;
+    .chapter-card h3 {
+      margin: 12px 0 5px;
+      font-size: 1.15rem;
     }
 
-    .quiz-card p {
-      margin: 0 0 18px;
+    .chapter-card p {
+      margin: 0 0 16px;
       color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .status {
+      align-self: flex-start;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--ready-background);
+      color: var(--ready-text);
+      font-size: 0.78rem;
+      font-weight: 700;
     }
 
     .open-label {
@@ -106,20 +214,11 @@
       font-weight: 700;
     }
 
-    .status {
-      align-self: flex-start;
-      padding: 5px 10px;
-      border-radius: 999px;
-      background: var(--ready-background);
-      color: var(--ready-text);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-
     footer {
       margin-top: 34px;
       color: var(--muted);
       font-size: 0.9rem;
+      text-align: center;
     }
 
     @media (max-width: 650px) {
@@ -127,12 +226,16 @@
         padding-top: 30px;
       }
 
-      .quiz-grid {
+      .chapter-grid {
         grid-template-columns: 1fr;
       }
 
-      .quiz-card {
-        min-height: 165px;
+      .module-folder summary {
+        padding: 18px;
+      }
+
+      .module-content {
+        padding: 0 18px 18px;
       }
     }
   </style>
@@ -141,67 +244,160 @@
 <body>
   <main>
     <header>
-      <h1>Microbiology Module 4 Practice</h1>
+      <h1>Microbiology Practice Quizzes</h1>
 
       <p class="subtitle">
-        Select a chapter set below. Each quiz grades your answers and
-        generates a report listing the questions, topics, and learning
-        objectives that need additional review.
+        Select a module folder, then choose the chapter quiz you want
+        to complete.
       </p>
     </header>
 
-    <section class="quiz-grid" aria-label="Available quizzes">
-      <a class="quiz-card" href="quiz-27-33.html">
-        <span class="status">Ready</span>
+    <section class="module-list" aria-label="Course modules">
 
-        <h2>Chapters 27 + 33</h2>
+      <!-- MODULE 1 -->
+      <details class="module-folder">
+        <summary>
+          <span class="folder-icon" aria-hidden="true">
+            <span class="closed-folder">📁</span>
+            <span class="open-folder">📂</span>
+          </span>
 
-        <p>
-          Microbial interactions, normal microbiota, the microbiome,
-          and dysbiosis.
-        </p>
+          <div class="module-heading">
+            <h2>Module 1</h2>
+            <p>Click to view available chapter quizzes</p>
+          </div>
 
-        <span class="open-label">Open quiz →</span>
-      </a>
+          <span class="arrow" aria-hidden="true">⌄</span>
+        </summary>
 
-      <a class="quiz-card" href="quiz-31-32.html">
-        <span class="status">Ready</span>
+        <div class="module-content">
+          <p class="empty-message">
+            No Module 1 chapter quizzes have been added yet.
+          </p>
+        </div>
+      </details>
 
-        <h2>Chapters 31 + 32</h2>
+      <!-- MODULE 2 -->
+      <details class="module-folder">
+        <summary>
+          <span class="folder-icon" aria-hidden="true">
+            <span class="closed-folder">📁</span>
+            <span class="open-folder">📂</span>
+          </span>
 
-        <p>
-          Innate immunity, adaptive immunity, immune cells,
-          antibodies, and immune responses.
-        </p>
+          <div class="module-heading">
+            <h2>Module 2</h2>
+            <p>Click to view available chapter quizzes</p>
+          </div>
 
-        <span class="open-label">Open quiz →</span>
-      </a>
+          <span class="arrow" aria-hidden="true">⌄</span>
+        </summary>
 
-      <a class="quiz-card" href="quiz-34.html">
-        <span class="status">Ready</span>
+        <div class="module-content">
+          <p class="empty-message">
+            No Module 2 chapter quizzes have been added yet.
+          </p>
+        </div>
+      </details>
 
-        <h2>Chapter 34</h2>
+      <!-- MODULE 3 -->
+      <details class="module-folder">
+        <summary>
+          <span class="folder-icon" aria-hidden="true">
+            <span class="closed-folder">📁</span>
+            <span class="open-folder">📂</span>
+          </span>
 
-        <p>
-          Pathogenicity, virulence factors, toxins, transmission,
-          and infection.
-        </p>
+          <div class="module-heading">
+            <h2>Module 3</h2>
+            <p>Click to view available chapter quizzes</p>
+          </div>
 
-        <span class="open-label">Open quiz →</span>
-      </a>
+          <span class="arrow" aria-hidden="true">⌄</span>
+        </summary>
 
-      <a class="quiz-card" href="quiz-35-41.html">
-        <span class="status">Ready</span>
+        <div class="module-content">
+          <p class="empty-message">
+            No Module 3 chapter quizzes have been added yet.
+          </p>
+        </div>
+      </details>
 
-        <h2>Chapters 35 + 36 + 41</h2>
+      <!-- MODULE 4 -->
+      <details class="module-folder" open>
+        <summary>
+          <span class="folder-icon" aria-hidden="true">
+            <span class="closed-folder">📁</span>
+            <span class="open-folder">📂</span>
+          </span>
 
-        <p>
-          Epidemiology, vaccines, bioterrorism, biotechnology,
-          industrial microbiology, and microbial applications.
-        </p>
+          <div class="module-heading">
+            <h2>Module 4</h2>
+            <p>Four chapter quizzes available</p>
+          </div>
 
-        <span class="open-label">Open quiz →</span>
-      </a>
+          <span class="arrow" aria-hidden="true">⌄</span>
+        </summary>
+
+        <div class="module-content">
+          <div class="chapter-grid">
+
+            <a class="chapter-card" href="./quiz-27-33.html">
+              <span class="status">Ready</span>
+
+              <h3>Chapters 27 + 33</h3>
+
+              <p>
+                Microbial interactions, normal microbiota,
+                the microbiome, and dysbiosis.
+              </p>
+
+              <span class="open-label">Open chapter quiz →</span>
+            </a>
+
+            <a class="chapter-card" href="./quiz-31-32.html">
+              <span class="status">Ready</span>
+
+              <h3>Chapters 31 + 32</h3>
+
+              <p>
+                Innate immunity, adaptive immunity, immune cells,
+                antibodies, and immune responses.
+              </p>
+
+              <span class="open-label">Open chapter quiz →</span>
+            </a>
+
+            <a class="chapter-card" href="./quiz-34.html">
+              <span class="status">Ready</span>
+
+              <h3>Chapter 34</h3>
+
+              <p>
+                Pathogenicity, virulence factors, toxins,
+                transmission, and infection.
+              </p>
+
+              <span class="open-label">Open chapter quiz →</span>
+            </a>
+
+            <a class="chapter-card" href="./quiz-35-36-41.html">
+              <span class="status">Ready</span>
+
+              <h3>Chapters 35 + 36 + 41</h3>
+
+              <p>
+                Epidemiology, vaccines, bioterrorism,
+                biotechnology, and microbial applications.
+              </p>
+
+              <span class="open-label">Open chapter quiz →</span>
+            </a>
+
+          </div>
+        </div>
+      </details>
+
     </section>
 
     <footer>
